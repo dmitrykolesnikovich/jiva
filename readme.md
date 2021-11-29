@@ -11,5 +11,5 @@ gradlew jiva:compiler:installShadowDist
 # How to Test
 
 ```
-java -cp .:language/compiler/build/install/compiler-shadow/lib/compiler.jar jiva.compiler.Compiler showcase/res/DefaultParamTest.jiva
+java -cp .:language/compiler/build/install/compiler-shadow/lib/compiler.jar jiva.Compiler showcase/res/DefaultParamTest.jiva
 ```

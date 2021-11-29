@@ -1,4 +1,4 @@
-package jiva.compiler
+package jiva
 
 import jiva.bytecodegeneration.BytecodeGenerator
 import jiva.domain.CompilationUnit
