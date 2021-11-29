@@ -18,7 +18,7 @@ import java.util.stream.Collectors
 /**
  * Created by kuba on 01.04.16.
  */
-class ClassVisitor : JivaBaseVisitor<ClassDeclaration?>() {
+class ClassVisitor : JivaBaseVisitor<ClassDeclaration>() {
 
     lateinit var scope: Scope
 
@@ -47,6 +47,8 @@ class ClassVisitor : JivaBaseVisitor<ClassDeclaration?>() {
         }
         return ClassDeclaration(name, fields, methods)
     }
+
+    /*internals*/
 
     private fun addDefaultConstructorSignatureToScope(name: String, defaultConstructorExists: Boolean) {
         if (!defaultConstructorExists) {

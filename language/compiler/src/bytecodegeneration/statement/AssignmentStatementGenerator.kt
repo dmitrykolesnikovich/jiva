@@ -7,11 +7,8 @@ import jiva.domain.type.Type
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 
-class AssignmentStatementGenerator(
-    private val methodVisitor: MethodVisitor,
-    private val expressionGenerator: ExpressionGenerator,
-    private val scope: Scope
-) {
+class AssignmentStatementGenerator(val methodVisitor: MethodVisitor, val expressionGenerator: ExpressionGenerator, val scope: Scope) {
+
     fun generate(assignment: Assignment) {
         val varName = assignment.varName
         val expression = assignment.expression
@@ -32,9 +29,12 @@ class AssignmentStatementGenerator(
         methodVisitor.visitFieldInsn(Opcodes.PUTFIELD, field.ownerInternalName, field.name, descriptor)
     }
 
+    /*internals*/
+
     private fun castIfNecessary(expressionType: Type, variableType: Type) {
         if (expressionType != variableType) {
             methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, variableType.internalName)
         }
     }
+
 }

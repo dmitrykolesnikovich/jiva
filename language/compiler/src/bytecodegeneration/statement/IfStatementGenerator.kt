@@ -1,17 +1,13 @@
 package jiva.bytecodegeneration.statement
 
-import jiva.bytecodegeneration.statement.StatementGenerator
 import jiva.bytecodegeneration.expression.ExpressionGenerator
 import jiva.domain.node.statement.IfStatement
 import org.objectweb.asm.Label
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 
-class IfStatementGenerator(
-    private val statementGenerator: StatementGenerator,
-    private val expressionGenerator: ExpressionGenerator,
-    private val methodVisitor: MethodVisitor
-) {
+class IfStatementGenerator(val statementGenerator: StatementGenerator, val expressionGenerator: ExpressionGenerator, val methodVisitor: MethodVisitor) {
+
     fun generate(ifStatement: IfStatement) {
         val condition = ifStatement.condition
         condition.accept(expressionGenerator)
@@ -27,4 +23,5 @@ class IfStatementGenerator(
         ifStatement.trueStatement.accept(statementGenerator)
         methodVisitor.visitLabel(endLabel)
     }
+
 }

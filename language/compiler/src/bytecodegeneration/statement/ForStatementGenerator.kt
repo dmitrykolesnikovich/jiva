@@ -1,7 +1,6 @@
 package jiva.bytecodegeneration.statement
 
 import jiva.domain.node.statement.RangedForStatement
-import jiva.bytecodegeneration.statement.StatementGenerator
 import jiva.bytecodegeneration.expression.ExpressionGenerator
 import jiva.domain.CompareSign
 import jiva.domain.node.expression.ConditionalExpression
@@ -13,6 +12,7 @@ import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 
 class ForStatementGenerator(private val methodVisitor: MethodVisitor) {
+
     fun generate(rangedForStatement: RangedForStatement) {
         val newScope = rangedForStatement.scope
         val scopeGeneratorWithNewScope = StatementGenerator(methodVisitor, newScope)
@@ -25,8 +25,7 @@ class ForStatementGenerator(private val methodVisitor: MethodVisitor) {
         val endExpression = rangedForStatement.endExpression
         val variable = LocalVariable(iteratorVarName, rangedForStatement.type)
         val iteratorVariable: Expression = LocalVariableReference(variable)
-        val iteratorGreaterThanEndConditional =
-            ConditionalExpression(iteratorVariable, endExpression, CompareSign.GREATER)
+        val iteratorGreaterThanEndConditional = ConditionalExpression(iteratorVariable, endExpression, CompareSign.GREATER)
         val iteratorLessThanEndConditional = ConditionalExpression(iteratorVariable, endExpression, CompareSign.LESS)
         iterator.accept(scopeGeneratorWithNewScope)
         iteratorLessThanEndConditional.accept(exprGeneratorWithNewScope)
@@ -46,4 +45,5 @@ class ForStatementGenerator(private val methodVisitor: MethodVisitor) {
         methodVisitor.visitJumpInsn(Opcodes.IFEQ, decrementationSection)
         methodVisitor.visitLabel(endLoopSection)
     }
+
 }

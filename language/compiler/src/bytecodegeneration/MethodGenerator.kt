@@ -3,18 +3,21 @@ package jiva.bytecodegeneration
 import jiva.bytecodegeneration.statement.StatementGenerator
 import jiva.domain.Constructor
 import jiva.domain.Function
-import jiva.domain.node.expression.SuperCall
 import jiva.domain.node.expression.EmptyExpression
+import jiva.domain.node.expression.SuperCall
 import jiva.domain.node.statement.Block
 import jiva.domain.node.statement.ReturnStatement
 import jiva.util.DescriptorFactory
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 
+private const val MAIN_FUN_NAME = "main"
+
 /**
  * Created by kuba on 28.03.16.
  */
 class MethodGenerator(private val classWriter: ClassWriter) {
+
     fun generate(function: Function) {
         val name = function.name
         val isMain = name == MAIN_FUN_NAME
@@ -46,6 +49,8 @@ class MethodGenerator(private val classWriter: ClassWriter) {
         mv.visitEnd()
     }
 
+    /*internals*/
+
     private fun appendReturnIfNotExists(function: Function, block: Block, statementScopeGenrator: StatementGenerator) {
         var isLastStatementReturn = false
         if (!block.statements.isEmpty()) {
@@ -59,7 +64,4 @@ class MethodGenerator(private val classWriter: ClassWriter) {
         }
     }
 
-    companion object {
-        const val MAIN_FUN_NAME = "main"
-    }
 }

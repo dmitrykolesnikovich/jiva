@@ -7,9 +7,8 @@ import jiva.domain.type.Type
 /**
  * Created by kuba on 10.04.16.
  */
-abstract class ArthimeticExpression protected constructor(leftExpression: Expression, rightExpression: Expression) : Expression {
-    val leftExpression: Expression
-    val rightExpression: Expression
+abstract class ArthimeticExpression(val leftExpression: Expression, val rightExpression: Expression) : Expression {
+
     override val type: Type = getCommonType(leftExpression, rightExpression)
 
     companion object {
@@ -18,8 +17,4 @@ abstract class ArthimeticExpression protected constructor(leftExpression: Expres
         }
     }
 
-    init {
-        this.leftExpression = leftExpression
-        this.rightExpression = rightExpression
-    }
 }

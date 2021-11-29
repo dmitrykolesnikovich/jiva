@@ -5,16 +5,14 @@ import jiva.domain.type.BultInType
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 
-class ArithmeticExpressionGenerator(
-    private val expressionGenerator: ExpressionGenerator,
-    private val methodVisitor: MethodVisitor
-) {
+class ArithmeticExpressionGenerator(val expressionGenerator: ExpressionGenerator, val methodVisitor: MethodVisitor) {
 
     fun generate(expression: Addition) {
         if (expression.type == BultInType.STRING) {
             generateStringAppend(expression)
             return
         }
+
         evaluateArithmeticComponents(expression)
         val type = expression.type
         methodVisitor.visitInsn(type.addOpcode)
@@ -37,6 +35,8 @@ class ArithmeticExpressionGenerator(
         val type = expression.type
         methodVisitor.visitInsn(type.dividOpcode)
     }
+
+    /*internals*/
 
     private fun evaluateArithmeticComponents(expression: ArthimeticExpression) {
         val leftExpression = expression.leftExpression

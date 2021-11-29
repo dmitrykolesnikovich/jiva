@@ -6,9 +6,6 @@ import jiva.domain.type.Type
 import jiva.exception.ParameterForNameNotFoundException
 import jiva.util.allIndexed
 
-/**
- * Created by kuba on 06.04.16.
- */
 class FunctionSignature(val name: String, val parameters: List<Parameter>, val returnType: Type) {
 
     fun getParameterForName(name: String): Parameter {
@@ -30,7 +27,7 @@ class FunctionSignature(val name: String, val parameters: List<Parameter>, val r
             .filter { p: Parameter -> p.defaultValue == null }
             .count()
         if (nonDefaultParametersCount > arguments.size) return false
-        val isNamedArgList = arguments.stream().anyMatch { a: Argument -> a.parameterName.isPresent }
+        val isNamedArgList = arguments.stream().anyMatch { it.parameterName != null }
         return if (isNamedArgList) {
             areArgumentsAndParamsMatchedByName(arguments)
         } else areArgumentsAndParamsMatchedByIndex(arguments)
@@ -46,8 +43,7 @@ class FunctionSignature(val name: String, val parameters: List<Parameter>, val r
 
     private fun areArgumentsAndParamsMatchedByName(arguments: List<Argument>): Boolean {
         return arguments.all { argument ->
-            val paramName = argument.parameterName.get()
-            parameters.stream().map(Parameter::name).anyMatch { anObject: String? -> paramName == anObject }
+            parameters.stream().map(Parameter::name).anyMatch { it == argument.parameterName }
         }
     }
 

@@ -11,11 +11,8 @@ import java.io.IOException
 import java.io.OutputStream
 import java.nio.file.Paths
 
-/**
- * Created by kuba on 15.03.16.
- */
 class Compiler {
-    @Throws(Exception::class)
+
     fun compile(args: Array<String>) {
         val argumentsErrors = getArgumentValidationErrors(args)
         if (argumentsErrors != ARGUMENT_ERRORS.NONE) {
@@ -35,11 +32,9 @@ class Compiler {
         if (args.size != 1) {
             return ARGUMENT_ERRORS.NO_FILE
         }
-        val filePath = args[0]
         return ARGUMENT_ERRORS.NONE
     }
 
-    @Throws(IOException::class)
     private fun saveBytecodeToClassFile(compilationUnit: CompilationUnit) {
         val bytecodeGenerator = BytecodeGenerator()
         val bytecode = bytecodeGenerator.generate(compilationUnit)
@@ -54,7 +49,6 @@ class Compiler {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(Compiler::class.java)
 
-        @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
             try {
@@ -64,4 +58,5 @@ class Compiler {
             }
         }
     }
+
 }

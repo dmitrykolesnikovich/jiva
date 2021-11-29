@@ -18,7 +18,7 @@ object TypeResolver {
 
     fun getFromTypeName(typeName: String): Type {
         if (typeName == "java.lang.String") return BultInType.STRING
-        val builtInType: Type? = getBuiltInType(typeName)
+        val builtInType = getBuiltInType(typeName)
         return builtInType ?: ClassType(typeName)
     }
 

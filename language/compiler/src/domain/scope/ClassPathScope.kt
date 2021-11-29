@@ -5,15 +5,12 @@ import jiva.util.ReflectionObjectToSignatureMapper
 import org.apache.commons.lang3.reflect.ConstructorUtils
 import org.apache.commons.lang3.reflect.MethodUtils
 
-/**
- * Created by kuba on 11.05.16.
- */
 class ClassPathScope {
 
     fun getMethodSignature(owner: Type, methodName: String?, arguments: List<Type>): FunctionSignature? {
         return try {
             val methodOwnerClass = owner.typeClass
-            val params = arguments.map { obj: Type -> obj.typeClass }.toTypedArray()
+            val params = arguments.map { it.typeClass }.toTypedArray()
             val method = MethodUtils.getMatchingAccessibleMethod(methodOwnerClass, methodName, *params)
             ReflectionObjectToSignatureMapper.fromMethod(method)
         } catch (e: Exception) {
@@ -24,7 +21,7 @@ class ClassPathScope {
     fun getConstructorSignature(className: String?, arguments: List<Type>): FunctionSignature? {
         return try {
             val methodOwnerClass = Class.forName(className)
-            val params = arguments.map { obj: Type -> obj.typeClass }.toTypedArray()
+            val params = arguments.map { it.typeClass }.toTypedArray()
             val constructor = ConstructorUtils.getMatchingAccessibleConstructor(methodOwnerClass, *params)
             ReflectionObjectToSignatureMapper.fromConstructor(constructor)
         } catch (e: Exception) {

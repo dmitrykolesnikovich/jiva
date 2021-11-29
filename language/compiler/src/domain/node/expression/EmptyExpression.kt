@@ -9,8 +9,8 @@ import jiva.domain.type.Type
  */
 class EmptyExpression(override val type: Type) : Expression {
 
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {

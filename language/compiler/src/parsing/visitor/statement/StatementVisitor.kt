@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.misc.NotNull
 /**
  * Created by kuba on 01.04.16.
  */
-class StatementVisitor(scope: Scope) : JivaBaseVisitor<Statement?>() {
+class StatementVisitor(scope: Scope) : JivaBaseVisitor<Statement>() {
 
     private val expressionVisitor = ExpressionVisitor(scope)
     private val printStatementVisitor = PrintStatementVisitor(expressionVisitor)

@@ -14,9 +14,9 @@ import java.util.*
 import java.util.function.Consumer
 
 class CallExpressionGenerator(
-    private val expressionGenerator: ExpressionGenerator,
-    private val scope: Scope,
-    private val methodVisitor: MethodVisitor
+    val expressionGenerator: ExpressionGenerator,
+    val scope: Scope,
+    val methodVisitor: MethodVisitor
 ) {
 
     fun generate(constructorCall: ConstructorCall) {
@@ -52,6 +52,8 @@ class CallExpressionGenerator(
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, ownerDescriptor, functionName, methodDescriptor, false)
     }
 
+    /*internals*/
+
     private fun generateArguments(call: FunctionCall) {
         val signature = scope.getMethodCallSignature(Optional.of(call.ownerType), call.identifier, call.arguments)
         generateArguments(call, signature)
@@ -75,37 +77,35 @@ class CallExpressionGenerator(
         }
         arguments = getSortedArguments(arguments, parameters)
         arguments.forEach(Consumer { argument: Argument ->
-            argument.accept(
-                expressionGenerator
-            )
+            argument.accept(expressionGenerator)
         })
         generateDefaultParameters(call, parameters, arguments)
     }
 
     private fun getSortedArguments(arguments: List<Argument>, parameters: List<Parameter>): List<Argument> {
         val argumentIndexComparator = Comparator { o1: Argument, o2: Argument ->
-            if (!o1.parameterName.isPresent) {
-                0
-            } else {
+            if (o1.parameterName != null) {
                 getIndexOfArgument(o1, parameters) - getIndexOfArgument(o2, parameters)
+            } else {
+                0
             }
         }
         return Ordering.from(argumentIndexComparator).immutableSortedCopy(arguments)
     }
 
     private fun getIndexOfArgument(argument: Argument, parameters: List<Parameter>): Int {
-        val paramName = argument.parameterName.get()
         return parameters.stream()
-            .filter { p: Parameter -> p.name == paramName }
+            .filter { p: Parameter -> p.name == argument.parameterName }
             .map { o: Parameter -> parameters.indexOf(o) }
             .findFirst()
             .orElseThrow { WrongArgumentNameException(argument, parameters) }
     }
 
     private fun generateDefaultParameters(call: Call, parameters: List<Parameter>, arguments: List<Argument>) {
-        for (i in arguments.size until parameters.size) {
-            val defaultParameter = parameters[i].defaultValue ?: throw BadArgumentsToFunctionCallException(call)
+        for (index in arguments.size until parameters.size) {
+            val defaultParameter = parameters[index].defaultValue ?: throw BadArgumentsToFunctionCallException(call)
             defaultParameter.accept(expressionGenerator)
         }
     }
+
 }

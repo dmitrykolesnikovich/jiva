@@ -11,7 +11,7 @@ import jiva.domain.type.Type
  */
 open class Function(private val functionSignature: FunctionSignature, val rootStatement: Statement) {
 
-    val name: String? get() = functionSignature.name
+    val name: String get() = functionSignature.name
     val parameters: List<Parameter> get() = functionSignature.parameters
     open val returnType: Type get() = functionSignature.returnType
 

@@ -8,8 +8,8 @@ import jiva.domain.scope.Scope
  */
 class CalledFunctionDoesNotExistException(private val functionCall: FunctionCall) : CompilationException() {
 
-    constructor(functionCall: FunctionCall, e: ReflectiveOperationException?) : this(functionCall) {}
-    constructor(functionCall: FunctionCall, scope: Scope?) : this(functionCall) {}
+    constructor(functionCall: FunctionCall, e: ReflectiveOperationException) : this(functionCall)
+    constructor(functionCall: FunctionCall, scope: Scope) : this(functionCall)
 
     override val message: String get() = "Function call" + functionCall.toString() + "does not exists"
 

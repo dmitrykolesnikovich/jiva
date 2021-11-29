@@ -6,10 +6,8 @@ import jiva.domain.type.ClassType
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 
-class PrintStatementGenerator(
-    private val expressionGenerator: ExpressionGenerator,
-    private val methodVisitor: MethodVisitor
-) {
+class PrintStatementGenerator(val expressionGenerator: ExpressionGenerator, val methodVisitor: MethodVisitor) {
+
     fun generate(printStatement: PrintStatement) {
         val expression = printStatement.expression
         methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;")
@@ -20,4 +18,5 @@ class PrintStatementGenerator(
         val fieldDescriptor = owner.descriptor
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, fieldDescriptor, "println", descriptor, false)
     }
+
 }

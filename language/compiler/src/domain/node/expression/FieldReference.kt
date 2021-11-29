@@ -8,14 +8,11 @@ import jiva.domain.type.Type
 /**
  * Created by kuba on 09.04.16.
  */
-class FieldReference(private val field: Field) : Reference {
+class FieldReference(field: Field) : Reference {
 
+    override val name: String = field.name
     override val type: Type = field.type
     val ownerInternalName: String = field.ownerInternalName
-
-    override fun geName(): String {
-        return field.name
-    }
 
     override fun accept(generator: ExpressionGenerator) {
         generator.generate(this)

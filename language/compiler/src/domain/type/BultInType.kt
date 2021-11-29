@@ -3,12 +3,7 @@ package jiva.domain.type
 /**
  * Created by kuba on 02.04.16.
  */
-enum class BultInType(
-    val id: String,
-    override val typeClass: Class<*>,
-    override val descriptor: String,
-    private val opcodes: TypeSpecificOpcodes
-) : Type {
+enum class BultInType(val id: String, override val typeClass: Class<*>, override val descriptor: String, val opcodes: TypeSpecificOpcodes) : Type {
 
     BOOLEAN("boolean", Boolean::class.javaPrimitiveType!!, "Z", TypeSpecificOpcodes.INT), INT(
         "int",
@@ -74,7 +69,7 @@ enum class BultInType(
     override val internalName: String get() = descriptor
     override val loadVariableOpcode: Int get() = opcodes.load
     override val storeVariableOpcode: Int get() = opcodes.store
-    override val returnOpcode: Int get() = opcodes.`return`
+    override val returnOpcode: Int get() = opcodes.returnCode
     override val addOpcode: Int get() = opcodes.add
     override val substractOpcode: Int get() = opcodes.substract
     override val multiplyOpcode: Int get() = opcodes.multiply

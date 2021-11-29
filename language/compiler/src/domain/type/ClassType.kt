@@ -11,7 +11,9 @@ import java.util.*
  * Created by kuba on 02.04.16.
  */
 class ClassType(name: String) : Type {
-    override val name: String
+
+    override val name: String = shortcuts[name] ?: name
+
     override val typeClass: Class<*>
         get() = try {
             Class.forName(name)
@@ -49,31 +51,29 @@ class ClassType(name: String) : Type {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
         val classType = o as ClassType
-        return !if (name != null) name != classType.name else classType.name != null
+        return !(name != classType.name)
     }
 
     override fun hashCode(): Int {
-        return name?.hashCode() ?: 0
+        return name.hashCode() ?: 0
     }
 
     companion object {
+
         private val shortcuts: Map<String, String> = ImmutableMap.of("List", "java.util.ArrayList")
-        @JvmStatic
+
         fun Integer(): ClassType {
             return ClassType("java.lang.Integer")
         }
 
-        @JvmStatic
         fun Double(): ClassType {
             return ClassType("java.lang.Double")
         }
 
-        @JvmStatic
         fun Boolean(): ClassType {
             return ClassType("java.lang.Boolean")
         }
 
-        @JvmStatic
         fun Float(): ClassType {
             return ClassType("java.lang.Float")
         }
@@ -83,7 +83,4 @@ class ClassType(name: String) : Type {
         }
     }
 
-    init {
-        this.name = Optional.ofNullable(shortcuts[name]).orElse(name)
-    }
 }

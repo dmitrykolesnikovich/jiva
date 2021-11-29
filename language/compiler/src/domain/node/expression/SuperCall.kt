@@ -13,8 +13,8 @@ class SuperCall(override val arguments: List<Argument> = emptyList()) : Call {
     override val identifier: String = "super"
     override val type: Type = BultInType.VOID
 
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {

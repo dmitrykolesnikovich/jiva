@@ -14,8 +14,8 @@ class ConstructorCall(override val type: Type, override val arguments: List<Argu
 
     constructor(identifier: String, arguments: List<Argument> = emptyList()) : this(ClassType(identifier), arguments)
 
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {

@@ -8,7 +8,7 @@ import jiva.util.TypeResolver
 import jiva.parser.JivaBaseVisitor
 import jiva.parser.JivaParser.FunctionDeclarationContext
 
-class FunctionSignatureVisitor(scope: Scope) : JivaBaseVisitor<FunctionSignature?>() {
+class FunctionSignatureVisitor(scope: Scope) : JivaBaseVisitor<FunctionSignature>() {
 
     private val expressionVisitor: ExpressionVisitor = ExpressionVisitor(scope)
 

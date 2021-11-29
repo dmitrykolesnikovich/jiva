@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.misc.NotNull
 /**
  * Created by kuba on 28.03.16.
  */
-class CompilationUnitVisitor : JivaBaseVisitor<CompilationUnit?>() {
+class CompilationUnitVisitor : JivaBaseVisitor<CompilationUnit>() {
     
     override fun visitCompilationUnit(ctx: CompilationUnitContext): CompilationUnit {
         val classVisitor = ClassVisitor()

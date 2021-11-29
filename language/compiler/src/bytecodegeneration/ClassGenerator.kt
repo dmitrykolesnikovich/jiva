@@ -1,6 +1,5 @@
 package jiva.bytecodegeneration
 
-import jiva.bytecodegeneration.FieldGenerator
 import jiva.domain.ClassDeclaration
 import jiva.domain.Function
 import jiva.domain.scope.Field
@@ -8,11 +7,10 @@ import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 import java.util.function.Consumer
 
-/**
- * Created by kuba on 28.03.16.
- */
 class ClassGenerator {
-    private val classWriter: ClassWriter
+
+    private val classWriter: ClassWriter = ClassWriter(ClassWriter.COMPUTE_FRAMES + ClassWriter.COMPUTE_MAXS)
+
     fun generate(classDeclaration: ClassDeclaration): ClassWriter {
         val name = classDeclaration.name
         classWriter.visit(CLASS_VERSION, Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, name, null, "java/lang/Object", null)
@@ -30,7 +28,4 @@ class ClassGenerator {
         private const val CLASS_VERSION = 52
     }
 
-    init {
-        classWriter = ClassWriter(ClassWriter.COMPUTE_FRAMES + ClassWriter.COMPUTE_MAXS)
-    }
 }

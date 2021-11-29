@@ -8,8 +8,9 @@ import jiva.domain.type.Type
  * Created by kuba on 02.04.16.
  */
 class Parameter(val name: String, override val type: Type, val defaultValue: Expression?) : Expression {
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {
@@ -28,4 +29,5 @@ class Parameter(val name: String, override val type: Type, val defaultValue: Exp
         result = 31 * result + (type.hashCode() ?: 0)
         return result
     }
+
 }

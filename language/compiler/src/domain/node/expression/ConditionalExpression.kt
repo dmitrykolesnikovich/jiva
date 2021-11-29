@@ -10,12 +10,7 @@ import jiva.exception.MixedComparisonNotAllowedException
 /**
  * Created by kuba on 12.04.16.
  */
-class ConditionalExpression(
-    val leftExpression: Expression,
-    val rightExpression: Expression,
-    val compareSign: CompareSign
-) :
-    Expression {
+class ConditionalExpression(val leftExpression: Expression, val rightExpression: Expression, val compareSign: CompareSign): Expression {
 
     override val type: Type = BultInType.BOOLEAN
     val isPrimitiveComparison: Boolean
@@ -31,13 +26,12 @@ class ConditionalExpression(
         }
     }
 
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {
         generator.generate(this)
     }
-
 
 }

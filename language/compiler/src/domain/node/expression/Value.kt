@@ -8,8 +8,9 @@ import jiva.domain.type.Type
  * Created by kuba on 02.04.16.
  */
 class Value(override val type: Type, val value: String) : Expression {
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {

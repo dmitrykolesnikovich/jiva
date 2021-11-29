@@ -5,11 +5,11 @@ import jiva.parsing.visitor.expression.ExpressionVisitor
 import jiva.parser.JivaBaseVisitor
 import jiva.parser.JivaParser.AssignmentContext
 
-class AssignmentStatementVisitor(private val expressionVisitor: ExpressionVisitor) : JivaBaseVisitor<Assignment?>() {
+class AssignmentStatementVisitor(private val visitor: ExpressionVisitor) : JivaBaseVisitor<Assignment>() {
 
     override fun visitAssignment(ctx: AssignmentContext): Assignment {
         val expressionCtx = ctx.expression()
-        val expression = expressionCtx.accept(expressionVisitor)
+        val expression = expressionCtx.accept(visitor)
         val varName = ctx.name().text
         return Assignment(varName, expression!!)
     }

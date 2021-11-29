@@ -5,7 +5,7 @@ import jiva.util.TypeResolver
 import jiva.parser.JivaBaseVisitor
 import jiva.parser.JivaParser.ValueContext
 
-class ValueExpressionVisitor : JivaBaseVisitor<Value?>() {
+class ValueExpressionVisitor : JivaBaseVisitor<Value>() {
 
     override fun visitValue(ctx: ValueContext): Value {
         val value = ctx.text

@@ -15,13 +15,12 @@ class FunctionCall(val signature: FunctionSignature, override val arguments: Lis
             this(signature, arguments, EmptyExpression(ownerType))
 
 
-    override fun accept(genrator: ExpressionGenerator) {
-        genrator.generate(this)
+    override fun accept(generator: ExpressionGenerator) {
+        generator.generate(this)
     }
 
     override fun accept(generator: StatementGenerator) {
         generator.generate(this)
     }
-
 
 }

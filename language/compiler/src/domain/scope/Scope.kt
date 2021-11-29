@@ -14,9 +14,6 @@ import org.apache.commons.collections4.map.LinkedMap
 import java.util.*
 import java.util.stream.Collectors
 
-/**
- * Created by kuba on 02.04.16.
- */
 class Scope {
 
     private val functionSignatures: MutableList<FunctionSignature>

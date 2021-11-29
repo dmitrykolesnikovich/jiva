@@ -10,6 +10,6 @@ import jiva.domain.type.Type
  */
 interface Expression : Statement {
     val type: Type
-    fun accept(genrator: ExpressionGenerator)
     override fun accept(generator: StatementGenerator)
+    fun accept(generator: ExpressionGenerator)
 }

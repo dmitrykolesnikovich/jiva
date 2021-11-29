@@ -5,10 +5,7 @@ import jiva.parsing.visitor.expression.ExpressionVisitor
 import jiva.parser.JivaBaseVisitor
 import jiva.parser.JivaParser.IfStatementContext
 
-class IfStatementVisitor(
-    private val statementVisitor: StatementVisitor,
-    private val expressionVisitor: ExpressionVisitor
-) : JivaBaseVisitor<IfStatement>() {
+class IfStatementVisitor(val statementVisitor: StatementVisitor, val expressionVisitor: ExpressionVisitor) : JivaBaseVisitor<IfStatement>() {
 
     override fun visitIfStatement(ctx: IfStatementContext): IfStatement {
         val conditionalExpressionContext = ctx.expression()

@@ -10,7 +10,7 @@ import jiva.parser.JivaParser.*
 /**
  * Created by kuba on 02.04.16.
  */
-class ExpressionVisitor(scope: Scope) : JivaBaseVisitor<Expression?>() {
+class ExpressionVisitor(scope: Scope) : JivaBaseVisitor<Expression>() {
 
     private val arithmeticExpressionVisitor: ArithmeticExpressionVisitor = ArithmeticExpressionVisitor(this)
     private val variableReferenceExpressionVisitor: VariableReferenceExpressionVisitor = VariableReferenceExpressionVisitor(scope)

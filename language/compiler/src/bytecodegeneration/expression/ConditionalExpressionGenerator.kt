@@ -1,6 +1,5 @@
 package jiva.bytecodegeneration.expression
 
-import jiva.bytecodegeneration.expression.ExpressionGenerator
 import jiva.domain.CompareSign
 import jiva.domain.node.expression.*
 import jiva.domain.scope.FunctionSignature
@@ -9,12 +8,9 @@ import jiva.domain.type.ClassType
 import org.objectweb.asm.Label
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
-import java.util.*
 
-class ConditionalExpressionGenerator(
-    private val expressionGenerator: ExpressionGenerator,
-    private val methodVisitor: MethodVisitor
-) {
+class ConditionalExpressionGenerator(val expressionGenerator: ExpressionGenerator, val methodVisitor: MethodVisitor) {
+
     fun generate(conditionalExpression: ConditionalExpression) {
         val leftExpression = conditionalExpression.leftExpression
         val rightExpression = conditionalExpression.rightExpression
@@ -34,14 +30,12 @@ class ConditionalExpressionGenerator(
         methodVisitor.visitLabel(endLabel)
     }
 
-    private fun generateObjectsComparison(
-        leftExpression: Expression,
-        rightExpression: Expression,
-        compareSign: CompareSign
-    ) {
+    /*internals*/
+
+    private fun generateObjectsComparison(leftExpression: Expression, rightExpression: Expression, compareSign: CompareSign) {
         val parameter = Parameter("o", ClassType("java.lang.Object"), null)
         val parameters = listOf(parameter)
-        val argument = Argument(rightExpression, Optional.empty())
+        val argument = Argument(rightExpression, null)
         val arguments = listOf(argument)
         when (compareSign) {
             CompareSign.EQUAL, CompareSign.NOT_EQUAL -> {
@@ -59,13 +53,10 @@ class ConditionalExpressionGenerator(
         }
     }
 
-    private fun generatePrimitivesComparison(
-        leftExpression: Expression,
-        rightExpression: Expression,
-        compareSign: CompareSign
-    ) {
+    private fun generatePrimitivesComparison(leftExpression: Expression, rightExpression: Expression, compareSign: CompareSign) {
         leftExpression.accept(expressionGenerator)
         rightExpression.accept(expressionGenerator)
         methodVisitor.visitInsn(Opcodes.ISUB)
     }
+
 }

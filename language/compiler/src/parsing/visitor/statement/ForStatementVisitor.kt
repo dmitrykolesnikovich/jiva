@@ -12,13 +12,13 @@ import jiva.parser.JivaParser.ForStatementContext
 
 class ForStatementVisitor(private val scope: Scope) : JivaBaseVisitor<RangedForStatement?>() {
 
-    private val expressionVisitor: ExpressionVisitor = ExpressionVisitor(scope)
+    private val visitor: ExpressionVisitor = ExpressionVisitor(scope)
 
     override fun visitForStatement(ctx: ForStatementContext): RangedForStatement {
         val newScope = Scope(scope)
         val forExpressionContext = ctx.forConditions()
-        val startExpression = forExpressionContext.startExpr.accept(expressionVisitor)!!
-        val endExpression = forExpressionContext.endExpr.accept(expressionVisitor)!!
+        val startExpression = forExpressionContext.startExpr.accept(visitor)!!
+        val endExpression = forExpressionContext.endExpr.accept(visitor)!!
         val iterator = forExpressionContext.iterator
         val statementVisitor = StatementVisitor(newScope)
         val varName = iterator.text

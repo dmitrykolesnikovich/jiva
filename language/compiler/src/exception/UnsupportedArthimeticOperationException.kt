@@ -5,8 +5,7 @@ import jiva.domain.node.expression.arthimetic.ArthimeticExpression
 /**
  * Created by kuba on 10.04.16.
  */
-class UnsupportedArthimeticOperationException(expression: ArthimeticExpression) :
-    RuntimeException(prepareMesage(expression)) {
+class UnsupportedArthimeticOperationException(expression: ArthimeticExpression) : RuntimeException(prepareMesage(expression)) {
 
     companion object {
         private fun prepareMesage(expression: ArthimeticExpression): String {

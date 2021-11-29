@@ -28,4 +28,5 @@ class Assignment : Statement {
     override fun accept(generator: StatementGenerator) {
         generator.generate(this)
     }
+
 }
