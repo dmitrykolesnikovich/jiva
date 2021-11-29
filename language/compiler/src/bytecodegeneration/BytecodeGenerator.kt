@@ -5,9 +5,10 @@ import jiva.domain.CompilationUnit
 class BytecodeGenerator {
 
     fun generate(compilationUnit: CompilationUnit): ByteArray {
-        val classDeclaration = compilationUnit.classDeclaration
         val classGenerator = ClassGenerator()
-        return classGenerator.generate(classDeclaration).toByteArray()
+        val classWriter = classGenerator.generate(compilationUnit.classDeclaration)
+        val result = classWriter.toByteArray()
+        return result
     }
 
 }

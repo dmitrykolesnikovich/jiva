@@ -9,3 +9,9 @@ dependencies {
     api "org.apache.commons:commons-lang3:3.12.0"
     api "org.slf4j:slf4j-log4j12:1.7.32"
 }
+
+/*showcase*/
+
+application { mainClassName = "jiva.Compiler" }
+
+testArgs "../../showcase/res/DefaultParamTest.jiva"

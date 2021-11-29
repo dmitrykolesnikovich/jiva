@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.OutputStream
 import java.nio.file.Paths
 
 class Compiler {
@@ -41,8 +40,8 @@ class Compiler {
         val className = compilationUnit.className
         val fileName = "$className.class"
         LOGGER.info("Finished Compiling. Saving bytecode to '{}'.", Paths.get(fileName).toAbsolutePath())
-        val os: OutputStream = FileOutputStream(fileName)
-        os.write(bytecode)
+        val outputStream = FileOutputStream(fileName)
+        outputStream.write(bytecode)
         LOGGER.info("Done. To run compiled file execute: 'java {}' in current dir", className)
     }
 
