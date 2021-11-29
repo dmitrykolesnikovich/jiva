@@ -11,7 +11,7 @@ gradlew jiva:compiler:installShadowDist
 # Compile Showcase
 
 ```
-java -cp .:language/compiler/build/install/compiler-shadow/lib/compiler.jar jiva.Compiler showcase/res/DefaultParamTest.jiva
+java -jar language/compiler/build/install/compiler-shadow/lib/compiler.jar showcase/res/DefaultParamTest.jiva
 ```
 
 # Run Showcase
