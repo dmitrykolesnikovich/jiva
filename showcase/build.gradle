@@ -1,0 +1,5 @@
+artifact "jiva:showcase-desktop"
+
+dependencies {
+    api project(":jiva:compiler")
+}

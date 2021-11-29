@@ -1,0 +1,87 @@
+subprojects {
+
+    ext.source = { Closure dependencies ->
+        if (project.path.endsWith("-draft")) return // quickfix todo improve
+        if (project.path.endsWith("-examples")) return // quickfix todo improve
+        if (!useInternalsIos && project.artifactId == "featurea:ios") return // quickfix todo improve
+
+        kotlin.sourceSets {
+            dependencies.delegate = new DependenciesDelegate(project)
+            dependencies()
+        }
+    }
+
+}
+
+class DependenciesDelegate {
+
+    private final Project project
+    private Object configureSourceSet
+
+    DependenciesDelegate(Project project) {
+        this.project = project
+    }
+
+    void common(Closure configure) {
+        configureSourceSet(configure, project.kotlin.sourceSets.commonMain)
+    }
+
+    void android(Closure configure) {
+        configureSourceSet(configure, project.kotlin.sourceSets.androidMain)
+    }
+
+    void desktop(Closure configure) {
+        configureSourceSet(configure, project.kotlin.sourceSets.desktopMain)
+    }
+
+    void ios(Closure configure) {
+        if (project.useInternalsIos) {
+            configureSourceSet(configure, project.kotlin.sourceSets.iosMain)
+        }
+    }
+
+    void js(Closure configure) {
+        configureSourceSet(configure, project.kotlin.sourceSets.jsMain)
+    }
+
+    void jvm(Closure configure) {
+        if (project.jvmExists()) {
+            configureSourceSet(configure, project.kotlin.sourceSets.jvmMain)
+        } else {
+            configureSourceSet(configure, project.kotlin.sourceSets.androidMain)
+            configureSourceSet(configure, project.kotlin.sourceSets.desktopMain)
+        }
+    }
+
+    void include(String dependency) {
+        Project rootProject = project.rootProject
+        Object configureSourceSet = configureSourceSet ?: project.kotlin.sourceSets.commonMain
+        configureSourceSet.dependencies {
+            boolean isLocalProject = dependency.startsWith(":") // quickfix todo improve
+            if (isLocalProject) {
+                api rootProject.project(dependency)
+            } else {
+                api dependency
+            }
+        }
+    }
+
+    void include(Project dependency) {
+        Object configureSourceSet = configureSourceSet ?: project.kotlin.sourceSets.commonMain
+        configureSourceSet.dependencies {
+            api dependency
+        }
+    }
+
+    String artifact(String string) {
+        return ":$string" // quickfix todo improve
+    }
+
+    private void configureSourceSet(Closure configure, Object sourceSet) {
+        configureSourceSet = sourceSet
+        configure.delegate = this
+        configure()
+        configureSourceSet = null
+    }
+
+}

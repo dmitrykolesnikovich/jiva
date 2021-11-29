@@ -1,0 +1,8 @@
+apply from: "gradle/featurea/plugin.gradle"
+
+// language
+artifact("jiva:compiler") { "language/compiler" }
+artifact("jiva:parser") { "language/parser" }
+
+// showcase
+artifact("jiva:showcase") { "showcase" }

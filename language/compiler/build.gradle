@@ -1,0 +1,11 @@
+artifact "jiva:compiler-desktop"
+toolName "compiler"
+
+dependencies {
+    api project(":jiva:parser")
+    api "org.ow2.asm:asm-all:5.2"
+    api "com.google.guava:guava:31.0.1-jre"
+    api "org.apache.commons:commons-collections4:4.4"
+    api "org.apache.commons:commons-lang3:3.12.0"
+    api "org.slf4j:slf4j-log4j12:1.7.32"
+}
