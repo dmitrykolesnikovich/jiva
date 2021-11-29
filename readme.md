@@ -2,14 +2,20 @@
 
 JVM language from scratch written in Java. Kotlin port of https://github.com/JakubDziworski/Enkel-JVM-language
 
-# How to Build
+# Build Compiler
 
 ```
 gradlew jiva:compiler:installShadowDist
 ```
 
-# How to Test
+# Compile Test
 
 ```
 java -cp .:language/compiler/build/install/compiler-shadow/lib/compiler.jar jiva.Compiler showcase/res/DefaultParamTest.jiva
+```
+
+# Run Test
+
+```
+java DefaultParamTest
 ```
