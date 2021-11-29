@@ -1,10 +1,10 @@
 Fields {
 
-int field
+    int field
 
-start {
-    field = 5
-    print field
-}
+    start {
+        field = 5
+        print field
+    }
 
 }
