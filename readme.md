@@ -8,13 +8,13 @@ JVM language from scratch written in Java. Kotlin port of https://github.com/Jak
 gradlew jiva:compiler:installShadowDist
 ```
 
-# Compile Test
+# Compile Showcase
 
 ```
 java -cp .:language/compiler/build/install/compiler-shadow/lib/compiler.jar jiva.Compiler showcase/res/DefaultParamTest.jiva
 ```
 
-# Run Test
+# Run Showcase
 
 ```
 java DefaultParamTest
